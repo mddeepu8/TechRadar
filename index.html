@@ -93,10 +93,10 @@
  <script>
       // Fetch CSV data and call the function to draw the radar using CSV entries
     var xhr = new XMLHttpRequest();
+    xhr.open('GET', feedURL, true)
       xhr.onreadystatechange = function() {
       if (xhr.readyState === 4){
-
-        var entries = d3.csvParse(xhr.responseText, function (row) {
+	    var entries = d3.csvParse(xhr.responseText, function (row) {
             return toEntry(row);
         });
         draw_radar(entries);
@@ -109,7 +109,7 @@
      function toEntry(row) {
         return {
         label: row.name,
-		    ring: ['adopt', 'assess', 'trial', 'hold'].indexOf(row.ring),
+        ring: ['adopt', 'assess', 'trial', 'hold'].indexOf(row.ring),
         quadrant: ['platforms', 'languages & frameworks', 'tools', 'techniques'].indexOf(row.quadrant),
         isNew:true,
         label: row.description,
@@ -156,6 +156,7 @@
    }
   </script>
 </section>
+<!--
 <script>
 radar_visualization({
   svg_id: "radar",
